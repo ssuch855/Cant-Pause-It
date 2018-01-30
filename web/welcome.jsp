@@ -42,7 +42,7 @@
     <h1>Endicott Unhappiness Project</h1>
     <p>The art of being unhappy.</p>
     <div class="form-group">
-      <input type="text" name="runid" class="form-control" id="runid" placeholder="User ID or Be Anonymous below. ">
+      <input type="text" name="username" class="form-control" id="username" placeholder="User ID or Be Anonymous below. ">
     </div>
     <div class="container">
       <input type="submit" class="btn btn-info" name="button" value="Log In">

@@ -1,6 +1,5 @@
 <%@ page import="models.StoryModel" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="datalayer.StoryDao" %>
+<%@ page import="models.UserModel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -22,10 +21,17 @@
 
 </head>
 <body>
+<!-- Let's start by loading information we expect in the request.
+     For any info missing, we'll just fake it.
+  -->
 <%
-    StoryModel stories[];
-    stories = (StoryModel[]) request.getAttribute("stories");
+    UserModel user = (UserModel) request.getAttribute("user");
+    if (user == null) {
+        user = new UserModel();
+        user.setUsername("anonymous");
+    }
 
+    StoryModel stories[] = (StoryModel[]) request.getAttribute("stories");
     if (stories == null) {
         stories = new StoryModel[0];
     }
@@ -36,9 +42,32 @@
 
     <form action="viewStories" method="post">
 
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="viewStories">Stories</a></li>
+                        <li class="inactive"><a href="viewStories">Ratings</a></li>
+                        <li class="inactive"><a href=""><%=user.getUsername()%></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="welcome"><span class="glyphicon glyphicon-log-out"></span>Exit</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
         <!-- Display the jumbotron -->
         <div class="jumbotron">
-            <h1>Lastest Bad Stuff</h1>
+            <h1>Oh No!</h1>
         </div>
 
         <!-- Display a list of stories -->
@@ -51,7 +80,7 @@
                             <%
                                 for (int i = stories.length - 1; i >= 0; i--) {
                             %>
-                            <li class="list-group-item"><%=stories[i].getStory()%>
+                            <li class="list-group-item">[<%=stories[i].getUsername()%>] - <%=stories[i].getStory()%>
                             </li>
                             <%
                                 }
@@ -78,6 +107,12 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- This is a screet input to the post!  Acts as if the user
+             had an input field with the username.
+         -->
+        <input type="hidden" name="username" value="<%=user.getUsername()%>">
 
     </form>
 </div>

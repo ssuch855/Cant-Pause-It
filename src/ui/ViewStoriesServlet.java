@@ -2,7 +2,9 @@ package ui;
 
 import datalayer.StoryDao;
 import datalayer.UniqueIdDao;
+import datalayer.UserDao;
 import models.StoryModel;
+import models.UserModel;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -23,21 +25,43 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
      * @throws IOException
      */
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        logRequestParameters(request);  // Just to help in debugging.
+        logRequestParameters(request);  // Just to help with debugging.
 
+        // Get data from the request
+        UserModel user = loadUserFromRequest(request);
+        String storyText=request.getParameter("storyText");
         String buttonValue = request.getParameter("submitButton");
 
+        // If submit was hit, add a story.
         if (buttonValue != null && buttonValue.equals("Submit")){
-            addStory(request);
+            addStory(user, storyText);
         }
 
-        // Let's just show the stories!
+        // Load any data we need on the page into the request.
+        request.setAttribute("user", user);
         loadStoriesIntoRequest(request);
+
+        // Show the page
         RequestDispatcher dispatcher=request.getRequestDispatcher("/viewstories.jsp");
         dispatcher.forward(request, response);
 
     }
 
+    /**
+     * Grab the username from the request and create a user model.
+     */
+    private UserModel loadUserFromRequest(HttpServletRequest request) {
+        String username=request.getParameter("username");
+        UserModel user = UserDao.getUser(username);
+
+        // If there is no user for some weird reason, just use anonymous.
+        if (user == null) {
+            user = new UserModel();
+            user.setUsername("anonymous");
+        }
+
+        return user;
+    }
 
     /**
      * The get method is called if the user directly invokes the URI.
@@ -69,12 +93,12 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
         request.setAttribute("stories", stories);
     }
 
-
-    private void addStory(HttpServletRequest request) {
-        String storyText=request.getParameter("storyText");
-
-        if (storyText != null) {
-            StoryDao.saveStory(UniqueIdDao.getID(), storyText);
+    /**
+     * Save a story.
+     */
+    private void addStory(UserModel user, String storyText) {
+        if (storyText != null && storyText.length() > 0 && user != null) {
+            StoryDao.saveStory(UniqueIdDao.getID(), storyText, user.getUsername(), 0);
         }
     }
 

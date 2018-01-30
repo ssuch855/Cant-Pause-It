@@ -11,9 +11,6 @@ public class StoryDao {
      * Given a story ID, return the story.
      */
     public static StoryModel getStory(int storyId) {
-        StoryModel story = new StoryModel();
-        story.setStoryId(storyId);
-
         File file = new File(getFilePath(storyId));
         return getStory(file);
     }
@@ -23,7 +20,7 @@ public class StoryDao {
      */
     public static void deleteStory(int storyId) {
         File file = new File(getFilePath(storyId));
-        boolean result = file.delete();
+        file.delete();
     }
 
     /*
@@ -48,10 +45,12 @@ public class StoryDao {
      * Given a story ID and story text, make a story model
      * and save it.
      */
-    public static void saveStory(int storyId, String storyText) {
+    public static void saveStory(int storyId, String storyText, String username, int commentOnStoryId) {
         StoryModel story = new StoryModel();
         story.setStoryId(UniqueIdDao.getID());
         story.setStory(storyText);
+        story.setUsername(username);
+        story.setCommentOnStoryID(commentOnStoryId);
         saveStory(story);
     }
 
@@ -111,16 +110,18 @@ public class StoryDao {
      * @param args
      */
     public static void main(String[] args) {
-        testCollegeDao();
+        testStoryDao();
     }
 
-    private static void testCollegeDao() {
+    private static void testStoryDao() {
         int storyId = 100;
         String text = "It was a dark and stormy night.";
         StoryDao dao = new StoryDao();
         StoryModel story = new StoryModel();
         story.setStoryId(storyId);
         story.setStory("It was a dark and stormy night.");
+        story.setUsername("allan");
+        story.setCommentOnStoryID(0);
         dao.saveStory(story);
 
         story = dao.getStory(storyId);
