@@ -1,0 +1,19 @@
+body{
+    color: forestgreen;
+}
+#username{
+    max-width: 300px;
+    margin-left: 400px;
+    margin-top: 100px;
+}
+#password{
+    max-width: 300px;
+    margin-left: 400px;
+}
+#name{
+    max-width: 300px;
+    margin-left: 400px;
+}
+#login{
+    margin-left: 425px;
+}

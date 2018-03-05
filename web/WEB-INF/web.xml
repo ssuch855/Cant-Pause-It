@@ -9,7 +9,7 @@
 
     <servlet>
         <servlet-name>viewStoriesServlet</servlet-name>
-        <servlet-class>ui.ViewStoriesServlet</servlet-class>
+        <servlet-class>ui.ViewReviewServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>viewStoriesServlet</servlet-name>
@@ -23,6 +23,24 @@
     <servlet-mapping>
         <servlet-name>welcomeServlet</servlet-name>
         <url-pattern>/welcome</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SportsGenreServlet</servlet-name>
+        <servlet-class>ui.SportsGenreServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SportsGenreServlet</servlet-name>
+        <url-pattern>/sports</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PCServlet</servlet-name>
+        <servlet-class>ui.PCServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PCServlet</servlet-name>
+        <url-pattern>/pc</url-pattern>
     </servlet-mapping>
 
 </web-app>

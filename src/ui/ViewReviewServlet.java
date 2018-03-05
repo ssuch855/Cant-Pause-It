@@ -1,9 +1,9 @@
 package ui;
 
-import datalayer.StoryDao;
+import datalayer.ReviewDao;
 import datalayer.UniqueIdDao;
 import datalayer.UserDao;
-import models.StoryModel;
+import models.ReviewModel;
 import models.UserModel;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.logging.Logger;
 
-public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
+public class ViewReviewServlet extends javax.servlet.http.HttpServlet {
     private Logger logger = Logger.getLogger(getClass().getName());
 
     /**
@@ -29,12 +29,13 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
 
         // Get data from the request
         UserModel user = loadUserFromRequest(request);
-        String storyText=request.getParameter("storyText");
+        String reviewText=request.getParameter("storyText");
+        String game=request.getParameter("game");
         String buttonValue = request.getParameter("submitButton");
 
         // If submit was hit, add a story.
         if (buttonValue != null && buttonValue.equals("Submit")){
-            addStory(user, storyText);
+            addStory(user, reviewText, game);
         }
 
         // Load any data we need on the page into the request.
@@ -86,19 +87,19 @@ public class ViewStoriesServlet extends javax.servlet.http.HttpServlet {
      * @param request
      */
     private void loadStoriesIntoRequest(HttpServletRequest request) {
-        ArrayList<StoryModel> storiesList = StoryDao.getStories();
+        ArrayList<ReviewModel> storiesList = ReviewDao.getStories();
 
         // We're going to convert the array list to an array because it works better in the JSP.
-        StoryModel[] stories = storiesList.toArray(new StoryModel[storiesList.size()]);
+        ReviewModel[] stories = storiesList.toArray(new ReviewModel[storiesList.size()]);
         request.setAttribute("stories", stories);
     }
 
     /**
      * Save a story.
      */
-    private void addStory(UserModel user, String storyText) {
-        if (storyText != null && storyText.length() > 0 && user != null) {
-            StoryDao.saveStory(UniqueIdDao.getID(), storyText, user.getUsername(), 0);
+    private void addStory(UserModel user, String reviewText, String game) {
+        if (reviewText != null && reviewText.length() > 0 && user != null) {
+            ReviewDao.saveStory(UniqueIdDao.getID(), reviewText, user.getUsername(), 0, game);
         }
     }
 

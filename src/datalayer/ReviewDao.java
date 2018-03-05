@@ -1,16 +1,16 @@
 package datalayer;
 
-import models.StoryModel;
+import models.ReviewModel;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class StoryDao {
+public class ReviewDao {
 
     /**
      * Given a story ID, return the story.
      */
-    public static StoryModel getStory(int storyId) {
+    public static ReviewModel getStory(int storyId) {
         File file = new File(getFilePath(storyId));
         return getStory(file);
     }
@@ -27,14 +27,14 @@ public class StoryDao {
      * Save the given story model.  Make sure you've set
      * the ID in the story model.
      */
-    public static void saveStory(StoryModel storyModel){
+    public static void saveStory(ReviewModel reviewModel){
         try {
-            File file = new File(getFilePath(storyModel.getStoryId()));
+            File file = new File(getFilePath(reviewModel.getStoryId()));
             file.createNewFile();
             FileOutputStream fos;
             fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(storyModel);
+            oos.writeObject(reviewModel);
             oos.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,20 +45,21 @@ public class StoryDao {
      * Given a story ID and story text, make a story model
      * and save it.
      */
-    public static void saveStory(int storyId, String storyText, String username, int commentOnStoryId) {
-        StoryModel story = new StoryModel();
+    public static void saveStory(int storyId, String storyText, String username, int commentOnStoryId, String game) {
+        ReviewModel story = new ReviewModel();
         story.setStoryId(UniqueIdDao.getID());
         story.setStory(storyText);
         story.setUsername(username);
         story.setCommentOnStoryID(commentOnStoryId);
+        story.setGame(game);
         saveStory(story);
     }
 
     /**
      * Return all saved stories.
      */
-    public static ArrayList<StoryModel> getStories() {
-        ArrayList<StoryModel> stories = new ArrayList<>();
+    public static ArrayList<ReviewModel> getStories() {
+        ArrayList<ReviewModel> stories = new ArrayList<>();
         String dir = DaoUtils.storageDirectoryName();
         File folder = new File(dir);
         File[] listOfFiles = folder.listFiles();
@@ -83,10 +84,10 @@ public class StoryDao {
     /*
      * Given a story filename, return the story that's saved in the file.
      */
-    private static StoryModel getStory(File file) {
-        StoryModel story = null;
+    private static ReviewModel getStory(File file) {
+        ReviewModel story = null;
         try {
-            story = new StoryModel();
+            story = new ReviewModel();
 
             if (!file.exists()) {
                 throw new FileNotFoundException();
@@ -94,7 +95,7 @@ public class StoryDao {
             else{
                 FileInputStream fis = new FileInputStream(file);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                story = (StoryModel) ois.readObject();
+                story = (ReviewModel) ois.readObject();
                 ois.close();
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -115,21 +116,24 @@ public class StoryDao {
 
     private static void testStoryDao() {
         int storyId = 100;
-        String text = "It was a dark and stormy night.";
-        StoryDao dao = new StoryDao();
-        StoryModel story = new StoryModel();
+        String text = "Tracer is OP!";
+        String game = "Overwatch";
+        ReviewDao dao = new ReviewDao();
+        ReviewModel story = new ReviewModel();
         story.setStoryId(storyId);
-        story.setStory("It was a dark and stormy night.");
-        story.setUsername("allan");
+        story.setStory(text);
+        story.setUsername("steve");
+        story.setGame(game);
         story.setCommentOnStoryID(0);
         dao.saveStory(story);
 
         story = dao.getStory(storyId);
-        assert(story.getStoryId() == 100);
-        assert(story.getStory().compareTo(text) == 0);
+        //assert(story.getStoryId() == 100);
+        //assert(story.getStory().compareTo(text) == 0);
 
-        ArrayList<StoryModel> stories = dao.getStories();
-        assert(stories != null && stories.size() >= 5);
+
+        ArrayList<ReviewModel> stories = dao.getStories();
+        //assert(stories != null && stories.size() >= 5);
 
         //dao.deleteStory(storyId);
     }
