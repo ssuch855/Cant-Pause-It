@@ -7,7 +7,25 @@ public class ReviewModel implements Serializable {
     private String story;
     private String username;
     private String game;
+    private String genre;
+    private String platform;
     private int commentOnStoryID;
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
     public String getGame() {
         return game;

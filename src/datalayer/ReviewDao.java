@@ -45,13 +45,15 @@ public class ReviewDao {
      * Given a story ID and story text, make a story model
      * and save it.
      */
-    public static void saveStory(int storyId, String storyText, String username, int commentOnStoryId, String game) {
+    public static void saveStory(int storyId, String storyText, String username, int commentOnStoryId, String game, String genre, String platform) {
         ReviewModel story = new ReviewModel();
         story.setStoryId(UniqueIdDao.getID());
         story.setStory(storyText);
         story.setUsername(username);
         story.setCommentOnStoryID(commentOnStoryId);
         story.setGame(game);
+        story.setGenre(genre);
+        story.setPlatform(platform);
         saveStory(story);
     }
 
@@ -125,6 +127,8 @@ public class ReviewDao {
         story.setUsername("steve");
         story.setGame(game);
         story.setCommentOnStoryID(0);
+        story.setGenre("Multiplayer");
+        story.setPlatform("PC");
         dao.saveStory(story);
 
         story = dao.getStory(storyId);

@@ -6,10 +6,12 @@ import models.UserModel;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.logging.Logger;
 
 public class PCServlet extends javax.servlet.http.HttpServlet {
     private Logger logger = Logger.getLogger(getClass().getName());
+
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         // Before we go the page to display the stories, we need to get the stories.
@@ -33,5 +35,12 @@ public class PCServlet extends javax.servlet.http.HttpServlet {
         }
 
         return user;
+    }
+    private void logRequestParameters(javax.servlet.http.HttpServletRequest request) {
+        Enumeration<String> params = request.getParameterNames();
+        while(params.hasMoreElements()){
+            String paramName = params.nextElement();
+            logger.info("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
+        }
     }
 }

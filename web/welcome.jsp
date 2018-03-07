@@ -18,6 +18,9 @@
 
 </head>
 <body>
+<%
+  String errorMessage = (String) request.getAttribute("errorMessage");
+%>
 <div class="container">
 
   <form action="welcome" method="post">
@@ -35,6 +38,11 @@
       <input type="submit" class="btn btn-info" name="button" id="create" value="Create Account">
     </div>
 
+<% if(errorMessage != null) { %>
+    <div class="alert alert-danger">
+      <strong>Info</strong> <%=errorMessage%>
+    </div>
+    <% } %>
 </form>
 </div>
 </body>

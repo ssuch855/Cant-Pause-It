@@ -37,8 +37,7 @@
 <p></p>
 <p></p>
 <!--<div class="container">-->
-<input type="hidden" name="username" value="<%=user.getUsername()%>">
-    <!--<form action="viewStories" method="post">
+    <form action="viewStories" method="post">
         <!-- Navigation Bar -->
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -49,7 +48,7 @@
                     <li class="active"><a href="#">Home</a></li>
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genres<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="">Sports</a></li>
+                            <li><a href="#">Sports</a></li>
                             <li><a href="#">Adventure</a></li>
                             <li><a href="#">Action</a></li>
                         </ul>
@@ -116,7 +115,7 @@
          -->
         <input type="hidden" name="username" value="<%=user.getUsername()%>">
 
-    <!--</form>
+    </form>
 <!--</div>-->
 </body>
 </html>

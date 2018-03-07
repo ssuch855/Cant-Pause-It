@@ -17,3 +17,6 @@ body{
 #login{
     margin-left: 425px;
 }
+div.alert-danger{
+    margin-top: 100px;
+}

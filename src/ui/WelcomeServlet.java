@@ -29,29 +29,39 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
         String name=request.getParameter("name");
 
         // Create an account
-        if (buttonValue != null && buttonValue.equals("Create Account") && username != null && username.length() > 0 && password != null && password.length() > 0 && name != null ){
-            user = new UserModel();
-            user.setUsername(username);
-            user.setName(name);
-            user.setPassword(password);
-            UserDao.saveUser(user);
-            RequestDispatcher dispatcher=request.getRequestDispatcher("/viewStories");
-            dispatcher.forward(request, response);
+        //&& username != null && username.length() > 0 && password != null && password.length() > 0 && name != null
+        if (buttonValue != null && buttonValue.equals("Create Account")){
+            if(username != null && username.length() > 0 && password != null && password.length() > 0 && name != null) {
+                user = new UserModel();
+                user.setUsername(username);
+                user.setName(name);
+                user.setPassword(password);
+                UserDao.saveUser(user);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/viewReviews");
+                dispatcher.forward(request, response);
+            }
+            else{
+                String errorMessage = "Please fill all fields";
+                request.setAttribute("errorMessage", errorMessage);
+            }
         }
 
         // Or log in
-        else if (buttonValue != null && buttonValue.equals("Log In") && username != null && username.length() > 0 && password != null && password.length() > 0 && name != null) {
+        else if (buttonValue != null && buttonValue.equals("Log In")) {
             user = UserDao.getUser(username);
-            if (user == null) {
-                // We don't know who this is.
-                // We're going to stay on this page.
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/welcome.jsp");
-                dispatcher.forward(request, response);
-                return;
+            if (user != null && username != null && username.length() > 0 && password != null && password.length() > 0 && name != null) {
+                if(password.equals(user.getPassword())){
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/viewReviews");
+                    dispatcher.forward(request, response);
+                }
+                else{
+                    String errorMessage = "Incorrect password";
+                    request.setAttribute("errorMessage", errorMessage);
+                }
             }
-            else if(password.equals(user.getPassword())){
-                RequestDispatcher dispatcher=request.getRequestDispatcher("/viewStories");
-                dispatcher.forward(request, response);
+            else{
+                String errorMessage = "Incorrect username or password";
+                request.setAttribute("errorMessage", errorMessage);
             }
         }
 

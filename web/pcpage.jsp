@@ -38,31 +38,56 @@
 
 
 %>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="welcome">Can't Pause It</a>
+
+<form action="pc" method="post">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="welcome">Can't Pause It</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="viewReviews">Home</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genres<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Sports</a></li>
+                        <li><a href="#">Adventure</a></li>
+                        <li><a href="#">Action</a></li>
+                    </ul>
+                </li>
+                <li class="active"><a href="pc">PC</a></li>
+                <li><a href="#">PS3</a></li>
+                <li><a href="#">PS4</a></li>
+                <li><a href="#">Xbox 360</a></li>
+                <li><a href="#">Xbox One</a></li>
+                <li><a href="#">Nintendo Switch</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span><%=user.getUsername()%></a></li>
+            </ul>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href="viewStories">Home</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genres<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="">Sports</a></li>
-                    <li><a href="#">Adventure</a></li>
-                    <li><a href="#">Action</a></li>
-                </ul>
-            </li>
-            <li class="active"><a href="pc">PC</a></li>
-            <li><a href="#">PS3</a></li>
-            <li><a href="#">PS4</a></li>
-            <li><a href="#">Xbox 360</a></li>
-            <li><a href="#">Xbox One</a></li>
-            <li><a href="#">Nintendo Switch</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span><%=user.getUsername()%></a></li>
-        </ul>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="well well-sm">
+                <h3><p class="text-primary"><%=stories.length%> Reviews</h3>
+                <div class="pre-scrollable">
+                    <ul class="list-group">
+                        <%
+                            for (int i = stories.length - 1; i >= 0; i--) {
+                                if (stories[i].getPlatform() == "PC"){
+                        %>
+                        <li class="list-group-item">[<%=stories[i].getUsername()%>] - (<%=stories[i].getGame()%>)<%=stories[i].getStory()%>
+                        </li>
+                        <%
+                                }
+                            }
+                        %>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-</nav>
+    <input type="hidden" name="username" value="<%=user.getUsername()%>">
+</form>
 </body>
 </html>

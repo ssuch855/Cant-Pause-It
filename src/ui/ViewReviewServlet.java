@@ -31,11 +31,13 @@ public class ViewReviewServlet extends javax.servlet.http.HttpServlet {
         UserModel user = loadUserFromRequest(request);
         String reviewText=request.getParameter("storyText");
         String game=request.getParameter("game");
+        String genre =request.getParameter("genre");
+        String platform=request.getParameter("platform");
         String buttonValue = request.getParameter("submitButton");
 
         // If submit was hit, add a story.
         if (buttonValue != null && buttonValue.equals("Submit")){
-            addStory(user, reviewText, game);
+            addStory(user, reviewText, game, genre, platform);
         }
 
         // Load any data we need on the page into the request.
@@ -76,7 +78,7 @@ public class ViewReviewServlet extends javax.servlet.http.HttpServlet {
         // Before we go the page to display the stories, we need to get the stories.
         // And then shove the stories in to the request.
         loadStoriesIntoRequest(request);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/viewstories.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/viewreviews.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -97,9 +99,9 @@ public class ViewReviewServlet extends javax.servlet.http.HttpServlet {
     /**
      * Save a story.
      */
-    private void addStory(UserModel user, String reviewText, String game) {
+    private void addStory(UserModel user, String reviewText, String game, String genre, String platform) {
         if (reviewText != null && reviewText.length() > 0 && user != null) {
-            ReviewDao.saveStory(UniqueIdDao.getID(), reviewText, user.getUsername(), 0, game);
+            ReviewDao.saveStory(UniqueIdDao.getID(), reviewText, user.getUsername(), 0, game, genre, platform);
         }
     }
 

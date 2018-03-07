@@ -8,12 +8,12 @@
     </welcome-file-list>
 
     <servlet>
-        <servlet-name>viewStoriesServlet</servlet-name>
+        <servlet-name>viewReviewServlet</servlet-name>
         <servlet-class>ui.ViewReviewServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>viewStoriesServlet</servlet-name>
-        <url-pattern>/viewStories</url-pattern>
+        <servlet-name>viewReviewServlet</servlet-name>
+        <url-pattern>/viewReviews</url-pattern>
     </servlet-mapping>
 
     <servlet>
