@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>PC</title>
+    <title>PC Reviews</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -47,13 +47,6 @@
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="viewReviews">Home</a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genres<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="">Sports</a></li>
-                        <li><a href="#">Adventure</a></li>
-                        <li><a href="#">Action</a></li>
-                    </ul>
-                </li>
                 <li class="active"><a href="pc">PC</a></li>
                 <li><a href="#">PS3</a></li>
                 <li><a href="#">PS4</a></li>
@@ -74,7 +67,7 @@
                     <ul class="list-group">
                         <%
                             for (int i = stories.length - 1; i >= 0; i--) {
-                                if (stories[i].getPlatform() == "PC"){
+                                if (stories[i].getPlatform().equals("PC")){
                         %>
                         <li class="list-group-item">[<%=stories[i].getUsername()%>] - (<%=stories[i].getGame()%>)<%=stories[i].getStory()%>
                         </li>
@@ -83,6 +76,27 @@
                             }
                         %>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="well well-sm">
+                <div class="form-group">
+                    <label for="storyText">Got A Review?</label>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="game" name="game"
+                               placeholder="What is the Game?">
+                        <input type="hidden" class="form-control" id="platform" name="platform" value="PC">
+                        <!--<input type="text" class="form-control" id="storyText" name="storyText"
+                               placeholder="What did you think of this game?">-->
+                        <textarea rows="10" cols="161" name="review"></textarea>
+                    </div>
+
+                    <!-- Button -->
+
+                    <input type="submit" class="btn btn-info" name="submitButton" value="Submit">
                 </div>
             </div>
         </div>

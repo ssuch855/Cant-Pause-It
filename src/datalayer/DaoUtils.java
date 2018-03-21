@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.logging.Logger;
 
 
-public class DaoUtils {
+public class  DaoUtils {
     private String REST_SERVICE_URL = "http://localhost:8080/College_sim3_war_exploded/finances";
     private static Logger logger = Logger.getLogger("DaoUtils");
 

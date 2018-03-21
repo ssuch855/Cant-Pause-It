@@ -132,14 +132,14 @@ public class ReviewDao {
         dao.saveStory(story);
 
         story = dao.getStory(storyId);
-        //assert(story.getStoryId() == 100);
-        //assert(story.getStory().compareTo(text) == 0);
+        assert(story.getStoryId() == 100);
+        assert(story.getStory().compareTo(text) == 0);
 
 
         ArrayList<ReviewModel> stories = dao.getStories();
-        //assert(stories != null && stories.size() >= 5);
+        assert(stories != null && stories.size() >= 5);
 
-        //dao.deleteStory(storyId);
+        dao.deleteStory(storyId);
     }
 
 }

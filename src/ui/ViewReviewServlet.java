@@ -45,7 +45,7 @@ public class ViewReviewServlet extends javax.servlet.http.HttpServlet {
         loadStoriesIntoRequest(request);
 
         // Show the page
-        RequestDispatcher dispatcher=request.getRequestDispatcher("/viewstories.jsp");
+        RequestDispatcher dispatcher=request.getRequestDispatcher("/viewreviews.jsp");
         dispatcher.forward(request, response);
 
     }
@@ -54,7 +54,7 @@ public class ViewReviewServlet extends javax.servlet.http.HttpServlet {
      * Grab the username from the request and create a user model.
      */
     private UserModel loadUserFromRequest(HttpServletRequest request) {
-        String username=request.getParameter("username");
+        String username = (String) request.getSession().getAttribute("username");
         UserModel user = UserDao.getUser(username);
 
         // If there is no user for some weird reason, just use anonymous.
@@ -63,6 +63,7 @@ public class ViewReviewServlet extends javax.servlet.http.HttpServlet {
             user.setUsername("anonymous");
         }
 
+        request.setAttribute("user", user);
         return user;
     }
 
@@ -77,6 +78,7 @@ public class ViewReviewServlet extends javax.servlet.http.HttpServlet {
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         // Before we go the page to display the stories, we need to get the stories.
         // And then shove the stories in to the request.
+        loadUserFromRequest(request);
         loadStoriesIntoRequest(request);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/viewreviews.jsp");
         dispatcher.forward(request, response);

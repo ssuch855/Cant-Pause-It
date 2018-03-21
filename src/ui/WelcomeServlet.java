@@ -44,6 +44,7 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
                 String errorMessage = "Please fill all fields";
                 request.setAttribute("errorMessage", errorMessage);
             }
+            //request.getSession().setAttribute("username", user.getUsername());
         }
 
         // Or log in
@@ -63,6 +64,7 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
                 String errorMessage = "Incorrect username or password";
                 request.setAttribute("errorMessage", errorMessage);
             }
+            request.getSession().setAttribute("username", user.getUsername());
         }
 
         // Load any data we need on the page into the request.

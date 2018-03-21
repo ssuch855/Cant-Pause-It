@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
-<title>Unhappy Stories</title>
+<title>All Reviews</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" href="resources/review.css">
 <!-- Latest compiled and minified CSS -->
@@ -37,7 +37,7 @@
 <p></p>
 <p></p>
 <!--<div class="container">-->
-    <form action="viewStories" method="post">
+    <form action="viewReviews" method="post">
         <!-- Navigation Bar -->
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -45,14 +45,7 @@
                     <a class="navbar-brand" href="welcome">Can't Pause It</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Genres<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Sports</a></li>
-                            <li><a href="#">Adventure</a></li>
-                            <li><a href="#">Action</a></li>
-                        </ul>
-                    </li>
+                    <li class="active"><a href="viewReviews">Home</a></li>
                     <li><a href="pc">PC</a></li>
                     <li><a href="#">PS3</a></li>
                     <li><a href="#">PS4</a></li>
@@ -76,7 +69,7 @@
                             <%
                                 for (int i = stories.length - 1; i >= 0; i--) {
                             %>
-                            <li class="list-group-item">[<%=stories[i].getUsername()%>] - (<%=stories[i].getGame()%>)<%=stories[i].getStory()%>
+                            <li class="list-group-item">[<%=stories[i].getUsername()%>] - (<%=stories[i].getGame()%>-- <%=stories[i].getPlatform() %>)<%=stories[i].getStory()%>
                             </li>
                             <%
                                 }
@@ -88,7 +81,7 @@
         </div>
 
         <!-- Input for a new story -->
-        <!--
+
         <div class="container">
             <div class="row">
                 <div class="well well-sm">
@@ -97,18 +90,20 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="game" name="game"
                                placeholder="What is the Game?">
+                        <input type="text" class="form-control" id="platform" name="platform"
+                               placeholder="What is the Platform?">
                         <input type="text" class="form-control" id="storyText" name="storyText"
                                placeholder="What did you think of this game?">
                     </div>
-        -->
+
                     <!-- Button -->
-        <!--
+
                     <input type="submit" class="btn btn-info" name="submitButton" value="Submit">
                 </div>
                 </div>
             </div>
         </div>
-        -->
+
 
         <!-- This is a screet input to the post!  Acts as if the user
              had an input field with the username.
