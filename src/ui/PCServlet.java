@@ -25,7 +25,7 @@ public class PCServlet extends javax.servlet.http.HttpServlet {
         String game=request.getParameter("game");
         String genre =request.getParameter("genre");
         String platform=request.getParameter("platform");
-        String buttonValue = request.getParameter("submitButton");
+        String buttonValue = request.getParameter("submitButton2");
 
         if (buttonValue != null && buttonValue.equals("Submit")){
             addStory(user, reviewText, game, genre, platform);
@@ -44,7 +44,7 @@ public class PCServlet extends javax.servlet.http.HttpServlet {
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         // Before we go the page to display the stories, we need to get the stories.
         // And then shove the stories in to the request.
-        //loadStoriesIntoRequest(request);
+        loadStoriesIntoRequest(request);
         loadUserFromRequest(request);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/pcpage.jsp");
         dispatcher.forward(request, response);
@@ -77,7 +77,7 @@ public class PCServlet extends javax.servlet.http.HttpServlet {
             user.setUsername("anonymous");
         }
 
-        request.getSession().setAttribute("user", user);
+        request.setAttribute("user", user);
         return user;
     }
 

@@ -67,10 +67,17 @@
                     <ul class="list-group">
                         <%
                             for (int i = stories.length - 1; i >= 0; i--) {
-                                if (stories[i].getPlatform().equals("PC")){
+                                if(stories[i].getPlatform().equals("PC")){
                         %>
-                        <li class="list-group-item">[<%=stories[i].getUsername()%>] - (<%=stories[i].getGame()%>)<%=stories[i].getStory()%>
-                        </li>
+                                <li class="list-group-item">[<%=stories[i].getUsername()%>] - (<%=stories[i].getGame()%>-- <%=stories[i].getPlatform() %>)<%=stories[i].getStory()%>
+                                <%
+                                if(user.getUsername().equals(stories[i].getUsername())){
+                                %>
+                                    <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="Delete">
+                                <%
+                                    }
+                                %>
+                                </li>
                         <%
                                 }
                             }
@@ -89,14 +96,13 @@
                         <input type="text" class="form-control" id="game" name="game"
                                placeholder="What is the Game?">
                         <input type="hidden" class="form-control" id="platform" name="platform" value="PC">
-                        <!--<input type="text" class="form-control" id="storyText" name="storyText"
-                               placeholder="What did you think of this game?">-->
-                        <textarea rows="10" cols="161" name="review"></textarea>
+                        <input type="text" class="form-control" id="storyText" name="storyText"
+                               placeholder="What did you think of this game?">
                     </div>
 
                     <!-- Button -->
 
-                    <input type="submit" class="btn btn-info" name="submitButton" value="Submit">
+                    <input type="submit" class="btn btn-info" name="submitButton2" value="Submit">
                 </div>
             </div>
         </div>

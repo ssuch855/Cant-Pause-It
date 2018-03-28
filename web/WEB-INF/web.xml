@@ -26,12 +26,12 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>SportsGenreServlet</servlet-name>
-        <servlet-class>ui.SportsGenreServlet</servlet-class>
+        <servlet-name>NintendoSwitchServlet</servlet-name>
+        <servlet-class>ui.NintendoSwitchServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>SportsGenreServlet</servlet-name>
-        <url-pattern>/sports</url-pattern>
+        <servlet-name>NintendoSwitchServlet</servlet-name>
+        <url-pattern>/nintendoswitch</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -43,4 +43,39 @@
         <url-pattern>/pc</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+    <servlet-name>PS3Servlet</servlet-name>
+    <servlet-class>ui.PS3Servlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PS3Servlet</servlet-name>
+        <url-pattern>/ps3</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PS4Servlet</servlet-name>
+        <servlet-class>ui.PS4Servlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PS4Servlet</servlet-name>
+        <url-pattern>/ps4</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Xbox360Servlet</servlet-name>
+        <servlet-class>ui.Xbox360Servlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Xbox360Servlet</servlet-name>
+        <url-pattern>/xbox360</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>XboxOneServlet</servlet-name>
+        <servlet-class>ui.XboxOneServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>XboxOneServlet</servlet-name>
+        <url-pattern>/xboxone</url-pattern>
+    </servlet-mapping>
 </web-app>

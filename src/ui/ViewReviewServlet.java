@@ -35,6 +35,11 @@ public class ViewReviewServlet extends javax.servlet.http.HttpServlet {
         String platform=request.getParameter("platform");
         String buttonValue = request.getParameter("submitButton");
 
+        String reviewIdAsString = getButtonNameGivenValue(request, "Delete");
+        if(reviewIdAsString != null){
+            int storyID = Integer.parseInt(reviewIdAsString);
+            ReviewDao.deleteStory(storyID);
+        }
         // If submit was hit, add a story.
         if (buttonValue != null && buttonValue.equals("Submit")){
             addStory(user, reviewText, game, genre, platform);
@@ -119,6 +124,18 @@ public class ViewReviewServlet extends javax.servlet.http.HttpServlet {
             String paramName = params.nextElement();
             logger.info("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
         }
+    }
+
+    private String getButtonNameGivenValue(HttpServletRequest request, String buttonValue){
+        Enumeration<String> params = request.getParameterNames();
+        while(params.hasMoreElements()){
+            String paramName = params.nextElement();
+            String paramValue = request.getParameter(paramName);
+            if(paramValue.equals(buttonValue)){
+                return paramName;
+            }
+        }
+        return null;
     }
 
 }
