@@ -30,7 +30,7 @@
     </div>
     <div class="form-group">
       <input type="text" name="username" class="form-control" id="username" placeholder="Enter Your User ID">
-      <input type="text" name="password" class="form-control" id="password" placeholder="Enter a Password">
+      <input type="password" name="password" class="form-control" id="password" placeholder="Enter a Password">
       <input type="text" name="name" class="form-control" id="name" placeholder="Enter Your First Name (If Creating Account)">
     </div>
     <div class="container">

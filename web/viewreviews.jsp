@@ -42,7 +42,7 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="welcome">Can't Pause It</a>
+                    <a class="navbar-brand" href="viewReviews">Can't Pause It</a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="viewReviews">Home</a></li>
@@ -54,6 +54,7 @@
                     <li><a href="nintendoswitch">Nintendo Switch</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="welcome">Log Out</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span><%=user.getUsername()%></a></li>
                 </ul>
             </div>
@@ -68,8 +69,11 @@
                         <ul class="list-group">
                             <%
                                 for (int i = stories.length - 1; i >= 0; i--) {
+                                    if (stories[i].getCommentOnStoryID() != 0) {
+                                        continue;
+                                    }
                             %>
-                            <li class="list-group-item">[<%=stories[i].getUsername()%>] - (<%=stories[i].getGame()%>-- <%=stories[i].getPlatform() %>)<%=stories[i].getStory()%>
+                            <li class="list-group-item"><%=stories[i].getUsername()%><br />(<%=stories[i].getGame()%>-- <%=stories[i].getPlatform() %>)<br /><%=stories[i].getStory()%><br />
                                 <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="View">
                                 <%
                                     if(user.getUsername().equals(stories[i].getUsername())){

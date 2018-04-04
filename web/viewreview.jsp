@@ -34,11 +34,16 @@
         review = new ReviewModel();
         review.setStory("Unavailable");
     }
+    ReviewModel comments[] = (ReviewModel[]) request.getAttribute("storycomments");
+    if (comments == null) {
+        comments = new ReviewModel[0];
+    }
 %>
 <p></p>
 <p></p>
 <!--<div class="container">-->
-    <form action="viewReviews" method="post">
+
+    <form action="viewOneReview" method="post">
         <!-- Navigation Bar -->
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
@@ -48,11 +53,11 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="viewReviews">Home</a></li>
                     <li><a href="pc">PC</a></li>
-                    <li><a href="#">PS3</a></li>
-                    <li><a href="#">PS4</a></li>
-                    <li><a href="#">Xbox 360</a></li>
-                    <li><a href="#">Xbox One</a></li>
-                    <li><a href="#">Nintendo Switch</a></li>
+                    <li><a href="ps3">PS3</a></li>
+                    <li><a href="ps4">PS4</a></li>
+                    <li><a href="xbox360">Xbox 360</a></li>
+                    <li><a href="xboxone">Xbox One</a></li>
+                    <li><a href="nintendoswitch">Nintendo Switch</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span><%=user.getUsername()%></a></li>
@@ -64,12 +69,60 @@
         <div class="container">
             <div class="row">
                 <div class="well well-sm">
-                    <h3><p class="text-primary">Story by:<%=review.getUsername()%></h3>
+                    <h3><p class="text-primary">Review by: <%=review.getUsername()%></h3>
                     <div class="pre-scrollable">
                         <%=review.getStory()%>
                     </div>
                 </div>
             </div>
+        </div>
+<!--
+        <div class="container">
+            <div class="row">
+                <div class="well well-sm">
+                    <h3><p class="text-primary"><%=comments.length%> Comments</h3>
+                    <div class="pre-scrollable">
+                        <ul class="list-group">
+                            <%
+                                for (int i = comments.length - 1; i >= 0; i--)
+                                {
+                            %>
+                            <li class="list-group-item">
+                                <% if (comments[i].getUsername().equals("anonymous")) { %>
+                                <span class="glyphicon glyphicon-user"></span>
+                                <% } else { %>
+                                <span class="glyphicon glyphicon-user" style="color:blue" ><%=comments[i].getUsername()%></span>
+
+                                <% } %>
+                                <%=comments[i].getStory()%>
+                            </li>
+                            <%
+                                }
+                            %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="well well-sm">
+                    <div class="form-group">
+                        <label for="storyText">Comment</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="storyText" name="storyText"
+                                   placeholder="What's your comment?">
+                        </div>
+                        <!-- Button -->
+<!--
+                        <input type="submit" class="btn btn-info" name="submitButton" value="Submit">
+                    </div>
+                </div>
+            </div>
+
+        </div>
         </div>
 
 

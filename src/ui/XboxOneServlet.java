@@ -7,7 +7,9 @@ import models.ReviewModel;
 import models.UserModel;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -21,6 +23,12 @@ public class XboxOneServlet extends javax.servlet.http.HttpServlet  {
 
         // Get data from the request
         UserModel user = loadUserFromRequest(request);
+
+        String viewButtonName = getButtonNameGivenValue(request, "View");
+        if(viewButtonName != null){
+            handleViewButton(request, response, user, viewButtonName);
+        }
+
         String reviewText=request.getParameter("storyText");
         String game=request.getParameter("game");
         String genre =request.getParameter("genre");
@@ -36,9 +44,23 @@ public class XboxOneServlet extends javax.servlet.http.HttpServlet  {
         loadStoriesIntoRequest(request);
 
         // Show the page
-        RequestDispatcher dispatcher=request.getRequestDispatcher("/pcpage.jsp");
+        RequestDispatcher dispatcher=request.getRequestDispatcher("/xboxonepage.jsp");
         dispatcher.forward(request, response);
 
+    }
+
+    private void handleViewButton(HttpServletRequest request, HttpServletResponse response, UserModel user, String viewButtonName) throws ServletException, IOException {
+        int storyID = Integer.parseInt(viewButtonName);
+        ReviewModel review = ReviewDao.getStory(storyID);
+
+        request.getSession().setAttribute("storyID", storyID);
+
+        request.setAttribute("user", user);
+        request.setAttribute("review", review);
+        loadCommentsOnStoryIntoRequest(request, storyID);
+
+        RequestDispatcher dispatcher=request.getRequestDispatcher("/viewreview.jsp");
+        dispatcher.forward(request, response);
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
@@ -46,7 +68,7 @@ public class XboxOneServlet extends javax.servlet.http.HttpServlet  {
         // And then shove the stories in to the request.
         loadStoriesIntoRequest(request);
         loadUserFromRequest(request);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pcpage.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/xboxonepage.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -56,6 +78,14 @@ public class XboxOneServlet extends javax.servlet.http.HttpServlet  {
         // We're going to convert the array list to an array because it works better in the JSP.
         ReviewModel[] stories = storiesList.toArray(new ReviewModel[storiesList.size()]);
         request.setAttribute("stories", stories);
+    }
+
+    private void loadCommentsOnStoryIntoRequest(HttpServletRequest request, int storyId) {
+        ArrayList<ReviewModel> storiesList = ReviewDao.getStoriesThatAreComments(storyId);
+
+        // We're going to convert the array list to an array because it works better in the JSP.
+        ReviewModel[] stories = storiesList.toArray(new ReviewModel[storiesList.size()]);
+        request.setAttribute("storycomments", stories);
     }
 
     private void addStory(UserModel user, String reviewText, String game, String genre, String platform) {
@@ -87,5 +117,17 @@ public class XboxOneServlet extends javax.servlet.http.HttpServlet  {
             String paramName = params.nextElement();
             logger.info("Parameter Name - "+paramName+", Value - "+request.getParameter(paramName));
         }
+    }
+
+    private String getButtonNameGivenValue(HttpServletRequest request, String buttonValue){
+        Enumeration<String> params = request.getParameterNames();
+        while(params.hasMoreElements()){
+            String paramName = params.nextElement();
+            String paramValue = request.getParameter(paramName);
+            if(paramValue.equals(buttonValue)){
+                return paramName;
+            }
+        }
+        return null;
     }
 }

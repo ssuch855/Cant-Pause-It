@@ -78,4 +78,13 @@
         <servlet-name>XboxOneServlet</servlet-name>
         <url-pattern>/xboxone</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewOneReviewServlet</servlet-name>
+        <servlet-class>ui.ViewOneReviewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewOneReviewServlet</servlet-name>
+        <url-pattern>/viewOneReview</url-pattern>
+    </servlet-mapping>
 </web-app>
