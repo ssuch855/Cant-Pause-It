@@ -48,7 +48,7 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="welcome">Can't Pause It</a>
+                    <a class="navbar-brand" href="viewReviews">Can't Pause It</a>
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="viewReviews">Home</a></li>
@@ -58,8 +58,10 @@
                     <li><a href="xbox360">Xbox 360</a></li>
                     <li><a href="xboxone">Xbox One</a></li>
                     <li><a href="nintendoswitch">Nintendo Switch</a></li>
+                    <li><a href="miscellaneous">Miscellaneous</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li><a href="welcome">Log Out</a></li>
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span><%=user.getUsername()%></a></li>
                 </ul>
             </div>
@@ -71,12 +73,14 @@
                 <div class="well well-sm">
                     <h3><p class="text-primary">Review by: <%=review.getUsername()%></h3>
                     <div class="pre-scrollable">
+                        <h4>
                         <%=review.getStory()%>
+                        </h4>
                     </div>
                 </div>
             </div>
         </div>
-<!--
+
         <div class="container">
             <div class="row">
                 <div class="well well-sm">
@@ -95,6 +99,13 @@
 
                                 <% } %>
                                 <%=comments[i].getStory()%>
+                                <%
+                                    if(user.getUsername().equals(comments[i].getUsername())){
+                                %>
+                                <input type="submit" class="btn btn-info" name="<%=comments[i].getStoryId()%>" value="Delete">
+                                <%
+                                    }
+                                %>
                             </li>
                             <%
                                 }
@@ -116,7 +127,7 @@
                                    placeholder="What's your comment?">
                         </div>
                         <!-- Button -->
-<!--
+
                         <input type="submit" class="btn btn-info" name="submitButton" value="Submit">
                     </div>
                 </div>

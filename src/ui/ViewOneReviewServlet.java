@@ -35,13 +35,18 @@ public class ViewOneReviewServlet extends javax.servlet.http.HttpServlet{
         String buttonValue = request.getParameter("submitButton");
 
         // We stored the id of the story being displayed in the session in ViewStoriesServlet.
-        Integer storyIdAsInteger = (Integer) request.getSession().getAttribute("storyid");
+        Integer storyIdAsInteger = (Integer) request.getSession().getAttribute("storyID");
 
         int storyBeingDisplayedId = 0;
         if (storyIdAsInteger != null) {
             storyBeingDisplayedId = storyIdAsInteger.intValue();
         }
 
+        String reviewIdAsString = getButtonNameGivenValue(request, "Delete");
+        if(reviewIdAsString != null){
+            int storyID = Integer.parseInt(reviewIdAsString);
+            ReviewDao.deleteStory(storyID);
+        }
         // Maybe the user submitted a comment.
         if (buttonValue != null && buttonValue.equals("Submit")){
             addStoryComment(user, storyBeingDisplayedId, commentText);
@@ -102,7 +107,7 @@ public class ViewOneReviewServlet extends javax.servlet.http.HttpServlet{
         // And then shove the stories in to the request.
 
         UserModel user = loadUserFromRequest(request);
-        String storyIdAsString =request.getParameter("storyId");
+        String storyIdAsString = request.getParameter("storyID");
         int storyBeingDisplayedId = 0;
         if (storyIdAsString != null) {
             storyBeingDisplayedId = Integer.parseInt(storyIdAsString);

@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>XBOX ONE Reviews</title>
+    <title>Miscellaneous Reviews</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -36,15 +36,15 @@
         stories = new ReviewModel[0];
     }
 
-    int xboxOneReviews = 0;
+    int miscReviews = 0;
     for (int i = stories.length - 1; i >= 0; i--){
-        if(stories[i].getPlatform().equals("Xbox One")){
-            xboxOneReviews = xboxOneReviews + 1;
+        if(stories[i].getPlatform().equals("Mics")){
+            miscReviews = miscReviews + 1;
         }
     }
 %>
 
-<form action="xboxone" method="post">
+<form action="pc" method="post">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -56,9 +56,9 @@
                 <li><a href="ps3">PS3</a></li>
                 <li><a href="ps4">PS4</a></li>
                 <li><a href="xbox360">Xbox 360</a></li>
-                <li class="active"><a href="xboxone">Xbox One</a></li>
+                <li><a href="xboxone">Xbox One</a></li>
                 <li><a href="nintendoswitch">Nintendo Switch</a></li>
-                <li><a href="miscellaneous">Miscellaneous</a></li>
+                <li class="active"><a href="miscellaneous">Miscellaneous</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="welcome">Log Out</a></li>
@@ -69,16 +69,16 @@
     <div class="container">
         <div class="row">
             <div class="well well-sm">
-                <h3><p class="text-primary"><%=xboxOneReviews%> Review(s)</h3>
+                <h3><p class="text-primary"><%=miscReviews%> Review(s)</h3>
                 <div class="pre-scrollable">
                     <ul class="list-group">
                         <%
                             for (int i = stories.length - 1; i >= 0; i--) {
                                 if (stories[i].getCommentOnStoryID() != 0)
                                     continue;
-                                if(stories[i].getPlatform().equals("Xbox One")){
+                                if(stories[i].getPlatform().equals("Misc")){
                         %>
-                        <li class="list-group-item"><%=stories[i].getUsername()%><br />(<%=stories[i].getGame()%>-- <%=stories[i].getPlatform() %>)<br /><%=stories[i].getStory()%><br />                            <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="View">
+                        <li class="list-group-item"><%=stories[i].getUsername()%><br />(<%=stories[i].getGame()%>-- <%=stories[i].getPlatform() %>)<br /><%=stories[i].getStory()%><br />                                    <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="View">
                             <%
                                 if(user.getUsername().equals(stories[i].getUsername())){
                             %>
@@ -104,7 +104,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" id="game" name="game"
                                placeholder="What is the Game?">
-                        <input type="hidden" class="form-control" id="platform" name="platform" value="Xbox One">
+                        <input type="hidden" class="form-control" id="platform" name="platform" value="Misc">
                         <input type="text" class="form-control" id="storyText" name="storyText"
                                placeholder="What did you think of this game?">
                     </div>

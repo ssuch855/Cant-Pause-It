@@ -87,4 +87,13 @@
         <servlet-name>ViewOneReviewServlet</servlet-name>
         <url-pattern>/viewOneReview</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MiscellaneousServlet</servlet-name>
+        <servlet-class>ui.MiscellaneousServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MiscellaneousServlet</servlet-name>
+        <url-pattern>/miscellaneous</url-pattern>
+    </servlet-mapping>
 </web-app>

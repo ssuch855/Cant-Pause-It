@@ -64,7 +64,9 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
                 String errorMessage = "Incorrect username or password";
                 request.setAttribute("errorMessage", errorMessage);
             }
-            request.getSession().setAttribute("username", user.getUsername());
+            if(user != null) {
+                request.getSession().setAttribute("username", user.getUsername());
+            }
         }
 
         // Load any data we need on the page into the request.

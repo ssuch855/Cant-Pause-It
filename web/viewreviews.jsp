@@ -33,6 +33,13 @@
     if (stories == null) {
         stories = new ReviewModel[0];
     }
+
+    int allReviews = 0;
+    for (int i = stories.length - 1; i >= 0; i--) {
+        if (stories[i].getCommentOnStoryID() == 0) {
+            allReviews = allReviews + 1;
+        }
+    }
 %>
 <p></p>
 <p></p>
@@ -52,6 +59,7 @@
                     <li><a href="xbox360">Xbox 360</a></li>
                     <li><a href="xboxone">Xbox One</a></li>
                     <li><a href="nintendoswitch">Nintendo Switch</a></li>
+                    <li><a href="miscellaneous">Miscellaneous</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="welcome">Log Out</a></li>
@@ -64,7 +72,7 @@
         <div class="container">
             <div class="row">
                 <div class="well well-sm">
-                    <h3><p class="text-primary"><%=stories.length%> Reviews</h3>
+                    <h3><p class="text-primary"><%=allReviews%> Review(s)</h3>
                     <div class="pre-scrollable">
                         <ul class="list-group">
                             <%

@@ -58,6 +58,7 @@
                 <li><a href="xbox360">Xbox 360</a></li>
                 <li><a href="xboxone">Xbox One</a></li>
                 <li><a href="nintendoswitch">Nintendo Switch</a></li>
+                <li><a href="miscellaneous">Miscellaneous</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="welcome">Log Out</a></li>

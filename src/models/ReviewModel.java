@@ -9,6 +9,7 @@ public class ReviewModel implements Serializable {
     private String game;
     private String genre;
     private String platform;
+    private int rating;
     private int commentOnStoryID;
 
     public String getPlatform() {
