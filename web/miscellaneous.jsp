@@ -7,6 +7,7 @@
 --%>
 <%@ page import="models.ReviewModel" %>
 <%@ page import="models.UserModel" %>
+<%@ page import="datalayer.LikeDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -85,7 +86,13 @@
                             <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="Delete">
                             <%
                                 }
+                                if(user.getUsername() != stories[i].getUsername() || LikeDao.didUserLikeStory(stories[i].getStoryId(), user.getUsername()) == false){
                             %>
+                            <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="Like">
+                            <%
+                                }
+                            %>
+                            Likes: <%=LikeDao.getNumberOfLikes(stories[i].getStoryId())%>
                         </li>
                         <%
                                 }

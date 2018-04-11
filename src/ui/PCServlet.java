@@ -1,5 +1,6 @@
 package ui;
 
+import datalayer.LikeDao;
 import datalayer.ReviewDao;
 import datalayer.UniqueIdDao;
 import datalayer.UserDao;
@@ -34,9 +35,21 @@ public class PCServlet extends javax.servlet.http.HttpServlet {
         String genre =request.getParameter("genre");
         String platform=request.getParameter("platform");
         String buttonValue = request.getParameter("submitButton2");
+        String likeButtonName = getButtonNameGivenValue(request, "Like");
 
-        if (buttonValue != null && buttonValue.equals("Submit")){
+        String reviewIdAsString = getButtonNameGivenValue(request, "Delete");
+        if(reviewIdAsString != null){
+            int storyID = Integer.parseInt(reviewIdAsString);
+            ReviewDao.deleteStory(storyID);
+        }
+
+        else if (buttonValue != null && buttonValue.equals("Submit")){
             addStory(user, reviewText, game, genre, platform);
+        }
+
+        else if(likeButtonName != null){
+            int storyID = Integer.parseInt(likeButtonName);
+            likeStory(user, storyID);
         }
 
         // Load any data we need on the page into the request.
@@ -47,6 +60,10 @@ public class PCServlet extends javax.servlet.http.HttpServlet {
         RequestDispatcher dispatcher=request.getRequestDispatcher("/pcpage.jsp");
         dispatcher.forward(request, response);
 
+    }
+
+    private void likeStory(UserModel user, int storyID) {
+        LikeDao.saveLike(storyID, user.getUsername());
     }
 
     private void handleViewButton(HttpServletRequest request, HttpServletResponse response, UserModel user, String viewButtonName) throws ServletException, IOException {

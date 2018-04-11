@@ -1,5 +1,6 @@
 <%@ page import="models.ReviewModel" %>
 <%@ page import="models.UserModel" %>
+<%@ page import="datalayer.LikeDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -23,7 +24,7 @@
      For any info missing, we'll just fake it.
   -->
 <%
-    UserModel user = (UserModel) request.getAttribute("user");
+    UserModel user = (UserModel) request.getSession().getAttribute("user");
     if (user == null) {
         user = new UserModel();
         user.setUsername("anonymous");
@@ -89,7 +90,14 @@
                                 <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="Delete">
                                 <%
                                     }
+
+                                    if(user.getUsername() != stories[i].getUsername() || LikeDao.didUserLikeStory(stories[i].getStoryId(), user.getUsername()) == false){
                                 %>
+                                <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="Like">
+                                <%
+                                    }
+                                %>
+                                Likes: <%=LikeDao.getNumberOfLikes(stories[i].getStoryId())%>
                             </li>
                             <%
                                 }

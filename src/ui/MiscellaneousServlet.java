@@ -35,7 +35,13 @@ public class MiscellaneousServlet extends javax.servlet.http.HttpServlet {
         String platform=request.getParameter("platform");
         String buttonValue = request.getParameter("submitButton2");
 
-        if (buttonValue != null && buttonValue.equals("Submit")){
+        String reviewIdAsString = getButtonNameGivenValue(request, "Delete");
+        if(reviewIdAsString != null){
+            int storyID = Integer.parseInt(reviewIdAsString);
+            ReviewDao.deleteStory(storyID);
+        }
+
+        else if (buttonValue != null && buttonValue.equals("Submit")){
             addStory(user, reviewText, game, genre, platform);
         }
 

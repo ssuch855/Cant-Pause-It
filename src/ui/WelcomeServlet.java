@@ -44,7 +44,7 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
                 String errorMessage = "Please fill all fields";
                 request.setAttribute("errorMessage", errorMessage);
             }
-            //request.getSession().setAttribute("username", user.getUsername());
+            request.getSession().setAttribute("username", user.getUsername());
         }
 
         // Or log in
@@ -66,11 +66,15 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
             }
             if(user != null) {
                 request.getSession().setAttribute("username", user.getUsername());
+                request.getSession().setAttribute("user", user);
+
             }
         }
 
         // Load any data we need on the page into the request.
-        request.setAttribute("user", user);
+        request.getSession().setAttribute("user", user);
+        request.getSession().setAttribute("username", user.getUsername());
+
 
         // Show the stories page
         RequestDispatcher dispatcher = request.getRequestDispatcher("/welcome.jsp");
