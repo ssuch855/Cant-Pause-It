@@ -61,7 +61,7 @@ public class ViewOneReviewServlet extends javax.servlet.http.HttpServlet{
 
         // Load any data we need on the page into the request.
         request.setAttribute("user", user);
-        request.setAttribute("story", story);
+        request.setAttribute("review", story);
 
 
         loadCommentsOnStoryIntoRequest(request, storyId);

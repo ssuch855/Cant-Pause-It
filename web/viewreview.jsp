@@ -23,7 +23,7 @@
      For any info missing, we'll just fake it.
   -->
 <%
-    UserModel user = (UserModel) request.getAttribute("user");
+    UserModel user = (UserModel) request.getSession().getAttribute("user");
     if (user == null) {
         user = new UserModel();
         user.setUsername("anonymous");

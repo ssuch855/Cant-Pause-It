@@ -26,7 +26,7 @@
 </head>
 <body>
 <%
-    UserModel user = (UserModel) request.getAttribute("user");
+    UserModel user = (UserModel) request.getSession().getAttribute("user");
     if (user == null) {
         user = new UserModel();
         user.setUsername("anonymous");
@@ -39,7 +39,7 @@
 
     int xbox360Reviews = 0;
     for (int i = stories.length - 1; i >= 0; i--){
-        if(stories[i].getPlatform().equals("Xbox 360")){
+        if(stories[i].getPlatform() != null && stories[i].getPlatform().equals("Xbox 360")){
             xbox360Reviews = xbox360Reviews + 1;
         }
     }

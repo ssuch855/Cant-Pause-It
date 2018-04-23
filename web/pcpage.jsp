@@ -26,7 +26,7 @@
 </head>
 <body>
 <%
-    UserModel user = (UserModel) request.getAttribute("user");
+    UserModel user = (UserModel) request.getSession().getAttribute("user");
     if (user == null) {
         user = new UserModel();
         user.setUsername("anonymous");
@@ -39,7 +39,7 @@
 
     int pcReviews = 0;
     for (int i = stories.length - 1; i >= 0; i--){
-        if(stories[i].getPlatform().equals("PC")){
+        if(stories[i].getPlatform() != null && stories[i].getPlatform().equals("PC")){
             pcReviews = pcReviews + 1;
         }
     }
@@ -81,7 +81,7 @@
                         %>
                         <li class="list-group-item"><%=stories[i].getUsername()%><br />(<%=stories[i].getGame()%>-- <%=stories[i].getPlatform() %>)<br /><%=stories[i].getStory()%><br />                                    <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="View">
                                 <%
-                                if(user.getUsername().equals(stories[i].getUsername())){
+                                    if(user.getUsername().equals(stories[i].getUsername())){
                                 %>
                                     <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="Delete">
                                 <%

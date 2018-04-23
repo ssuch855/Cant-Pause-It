@@ -43,14 +43,15 @@ public class PCServlet extends javax.servlet.http.HttpServlet {
             ReviewDao.deleteStory(storyID);
         }
 
-        else if (buttonValue != null && buttonValue.equals("Submit")){
-            addStory(user, reviewText, game, genre, platform);
-        }
-
         else if(likeButtonName != null){
             int storyID = Integer.parseInt(likeButtonName);
             likeStory(user, storyID);
         }
+
+        else if (buttonValue != null && buttonValue.equals("Submit")){
+            addStory(user, reviewText, game, genre, platform);
+        }
+
 
         // Load any data we need on the page into the request.
         request.setAttribute("user", user);
@@ -80,11 +81,25 @@ public class PCServlet extends javax.servlet.http.HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    private UserModel loadUserFromRequest(HttpServletRequest request) {
+        String username = (String) request.getSession().getAttribute("username");
+        UserModel user = UserDao.getUser(username);
+
+        // If there is no user for some weird reason, just use anonymous.
+        if (user == null) {
+            user = new UserModel();
+            user.setUsername("anonymous");
+        }
+
+        request.setAttribute("user", user);
+        return user;
+    }
+
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         // Before we go the page to display the stories, we need to get the stories.
         // And then shove the stories in to the request.
-        loadStoriesIntoRequest(request);
         loadUserFromRequest(request);
+        loadStoriesIntoRequest(request);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/pcpage.jsp");
         dispatcher.forward(request, response);
     }
@@ -114,19 +129,6 @@ public class PCServlet extends javax.servlet.http.HttpServlet {
     /**
      * Grab the username from the request and create a user model.
      */
-    private UserModel loadUserFromRequest(HttpServletRequest request) {
-        String username = (String) request.getSession().getAttribute("username");
-        UserModel user = UserDao.getUser(username);
-
-        // If there is no user for some weird reason, just use anonymous.
-        if (user == null) {
-            user = new UserModel();
-            user.setUsername("anonymous");
-        }
-
-        request.setAttribute("user", user);
-        return user;
-    }
 
     private void logRequestParameters(javax.servlet.http.HttpServletRequest request) {
         Enumeration<String> params = request.getParameterNames();
