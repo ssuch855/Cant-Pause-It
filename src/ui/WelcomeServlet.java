@@ -30,14 +30,20 @@ public class WelcomeServlet extends javax.servlet.http.HttpServlet {
 
         // Create an account
         //&& username != null && username.length() > 0 && password != null && password.length() > 0 && name != null
+        //&& UserDao.getUser(username).equals(null)
         if (buttonValue != null && buttonValue.equals("Create Account")){
-            if(username != null && username.length() > 0 && password != null && password.length() > 0 && name != null) {
+            UserModel existingUser = UserDao.getUser(username);
+            if(existingUser != null){
+                String errorMessage = "Username already in use";
+                request.setAttribute("errorMessage", errorMessage);
+            }
+            else if(username != null && username.length() > 0 && password != null && password.length() > 0 && name != null) {
                 user = new UserModel();
                 user.setUsername(username);
                 user.setName(name);
                 user.setPassword(password);
                 UserDao.saveUser(user);
-                request.getSession().setAttribute("user", user.getUsername());
+                request.getSession().setAttribute("user", user);
                 request.getSession().setAttribute("username", user.getUsername());
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/viewReviews");
                 dispatcher.forward(request, response);

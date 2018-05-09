@@ -106,7 +106,7 @@
                                 <%
                                     }
 
-                                    if(user.getUsername() != stories[i].getUsername() || LikeDao.didUserLikeStory(stories[i].getStoryId(), user.getUsername()) == false){
+                                    if(!user.getUsername().equals(stories[i].getUsername()) || LikeDao.didUserLikeStory(stories[i].getStoryId(), user.getUsername()) == false){
                                 %>
                                 <input type="submit" class="btn btn-info" name="<%=stories[i].getStoryId()%>" value="Like">
                                 <%

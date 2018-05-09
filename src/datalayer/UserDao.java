@@ -92,8 +92,7 @@ public class UserDao {
         UserDao dao = new UserDao();
         UserModel user = new UserModel();
         user.setUsername(username);
-        user.setName(name);
-        user.setPassword(password);
+
         dao.saveUser(user);
         System.out.println(user.getUsername());
         System.out.println(user.getName());

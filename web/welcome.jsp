@@ -41,23 +41,22 @@
   <form action="welcome" method="post">
     <div class="jumbotron text-center">
       <h1>Can't Pause It</h1>
-      <p>Let the world know how good (or bad) that one game is!</p>
+        <p>Let the world know how good (or bad) that one game is!</p>
+        <div class="form-group">
+        <input type="text" name="username" class="form-control" id="username" placeholder="Enter Your User ID">
+        <input type="password" name="password" class="form-control" id="password" placeholder="Enter a Password">
+        <input type="text" name="name" class="form-control" id="name" placeholder="Enter Your First Name (If Creating Account)">
+      </div>
+      <div class="container">
+        <input type="submit" class="btn btn-info" name="button" id="login" value="Log In">
+        <input type="submit" class="btn btn-info" name="button" id="create" value="Create Account">
+      </div>
+        <% if(errorMessage != null) { %>
+        <div class="alert alert-danger">
+            <strong>Info</strong> <%=errorMessage%>
+        </div>
+        <% } %>
     </div>
-    <div class="form-group">
-      <input type="text" name="username" class="form-control" id="username" placeholder="Enter Your User ID">
-      <input type="password" name="password" class="form-control" id="password" placeholder="Enter a Password">
-      <input type="text" name="name" class="form-control" id="name" placeholder="Enter Your First Name (If Creating Account)">
-    </div>
-    <div class="container">
-      <input type="submit" class="btn btn-info" name="button" id="login" value="Log In">
-      <input type="submit" class="btn btn-info" name="button" id="create" value="Create Account">
-    </div>
-
-<% if(errorMessage != null) { %>
-    <div class="alert alert-danger">
-      <strong>Info</strong> <%=errorMessage%>
-    </div>
-    <% } %>
 </form>
 </div>
 </body>
